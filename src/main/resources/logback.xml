@@ -1,0 +1,17 @@
+<configuration>
+  <appender class="ch.qos.logback.core.ConsoleAppender" name="STDOUT">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %X{tx-id} %highlight(%-5level) [%thread] %logger{36} - %msg%n
+      </pattern>
+    </encoder>
+
+  </appender>
+  <!--include resource="org/springframework/boot/logging/logback/base.xml"/ -->
+
+  <root level="debug">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>
+
