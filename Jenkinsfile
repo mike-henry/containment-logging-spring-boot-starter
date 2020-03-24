@@ -17,7 +17,7 @@ pipeline {
         // Jenkins credential id to authenticate to Nexus OSS
         NEXUS_CREDENTIAL_ID = "nexus-credentials"
 
-        PROJECT_NAME = "containment-containment-jaxrs-spring-boot-starter"
+        PROJECT_NAME = "containment-logging-spring-boot-starter"
     }
 
     stages {
@@ -92,14 +92,14 @@ pipeline {
                                                   artifactId: pom.artifactId,
                                                   classifier: '',
                                                   file      : artifactPath,
-                                                  type      : pom.packaging],
+                                                  type      : pom.packaging] //,
                                           // Lets upload the pom.xml file for additional information for Transitive dependencies
-                                          [
-                                                  artifactId: pom.artifactId,
-                                                  classifier: '',
-                                                  file      : "pom.xml",
-                                                  type      : "pom"
-                                          ]
+                                        //   [
+                                        //           artifactId: pom.artifactId,
+                                        //           classifier: '',
+                                        //           file      : "pom.xml",
+                                        //           type      : "pom"
+                                        //   ]
                                   ])
                       }
                 }
