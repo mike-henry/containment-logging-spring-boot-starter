@@ -44,21 +44,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh 'mvn -s ${SETTINGS_XML} clean compile'
+              //  sh 'mvn -s ${SETTINGS_XML} clean compile'
                 sh './gradlew clean build'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                sh 'mvn  -s ${SETTINGS_XML} test'
+               // sh 'mvn  -s ${SETTINGS_XML} test'
                  sh './gradlew test'
             }
         }
         stage('Package') {
             steps {
                 echo 'Packaging..'
-                sh "mvn -s ${SETTINGS_XML} package -DskipTests=true"
+              //  sh "mvn -s ${SETTINGS_XML} package -DskipTests=true"
                 sh './gradlew assemble'
             }
         }
@@ -70,7 +70,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying.. library'
-                sh "mvn -s ${SETTINGS_XML} deploy -DskipTests=true"
+               // sh "mvn -s ${SETTINGS_XML} deploy -DskipTests=true"
                 sh './gradlew publish'
             }
         }
