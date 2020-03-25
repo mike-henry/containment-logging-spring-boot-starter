@@ -43,3 +43,5 @@ build/
 .vscode/
 /pipeline.gdsl
 
+/gradle.properties
+/settings.xml

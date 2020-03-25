@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'com.spx.containment'
+version = '0.0.2-SNAPSHOT'
+
+description = """"""
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact("build/libs/${project.name}-$version"+".jar") {
+                extension "jar"
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username "${project.nexusUsername}"
+                password "${project.nexusPassword}"
+            }
+
+            if(project.version.endsWith('-SNAPSHOT')) {
+                url "${project.nexusUrl}${project.relativePathSnapshots}"
+            } else {
+                url "${project.nexusUrl}${project.relativePathReleases}"
+            }
+        }
+    }
+}
+
+
+repositories {
+    maven {
+        name 'nexus'
+        url "${project.nexusUrl}${project.relativePublicPath}"
+    }}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    compile group: 'com.spx.containment', name: 'containment-jaxrs-spring-boot-starter', version:"1.0-SNAPSHOT"
+    compile group: 'com.spx.containment', name: 'containment-logging-spring-boot-starter', version:"0.0.1-SNAPSHOT"
+    compile group: 'org.neo4j', name: 'neo4j-ogm-core', version:'3.2.6'
+}
