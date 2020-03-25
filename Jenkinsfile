@@ -20,12 +20,14 @@ pipeline {
         PROJECT_NAME = "containment-logging-spring-boot-starter"
 
         SETTINGS_XML = './settings.xml'
+        GRADLE_PROPERTIES = './gradle.properties'
     }
 
     stages {
         stage('Initialise') {
             steps {
-              configFileProvider([configFile(fileId: 'e1e9d5d0-3f70-410e-a096-38585ed36d99', variable: 'MAVEN_SETTINGS_FILE')]){
+              configFileProvider([configFile(fileId: 'e1e9d5d0-3f70-410e-a096-38585ed36d99', variable: 'MAVEN_SETTINGS_FILE'),
+                                  configFile(fileId: 'ce4190e5-99fe-411b-82ce-0fb8d9b123a1', variable: 'GRADLE_PROPERTY_FILE')]){
                 echo '.Initialising..'
 
                 sh '''
@@ -34,7 +36,7 @@ pipeline {
                  echo "MAVEN_HOME = ${MAVEN_HOME}"
                  echo "JAVA_HOME = ${JAVA_HOME}"
                  cp  ${MAVEN_SETTINGS_FILE} ${SETTINGS_XML}
-
+                 cp  ${GRADLE_PROPERTY_FILE} ${GRADLE_PROPERTIES}
                  '''
               }
             }
@@ -43,7 +45,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh 'mvn -s ${SETTINGS_XML} clean compile'
-                
+                sh './gradlew build'
             }
         }
         stage('Test') {
